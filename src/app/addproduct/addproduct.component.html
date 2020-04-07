@@ -1,0 +1,34 @@
+<div class="jumbotron">
+
+    <form>
+  
+        <div class="form-group">
+          <label for="pid">Enter Produt   Id </label>
+          <input [(ngModel)]="prod.productId" type="number"  class="form-control" name="pid"  id="pid" >
+        </div>
+  
+        <div class="form-group">
+            <label for="pname">Enter Product Name </label>
+            <input  [(ngModel)]="prod.productName"   type="text"  class="form-control" name="pname"  id="pname">
+        </div>
+  
+  
+  
+        <div class="form-group">
+            <label for="salary">Enter Price </label>
+            <input [(ngModel)]="prod.price"  type="number"  class="form-control" name="salary"  id="salary">
+        </div>
+  
+       <button   (click)="addProduct()" type="submit" class="btn btn-primary"> Add Product  </button>
+  
+      </form>
+  
+  </div>
+  <div *ngIf="temp.price>0">
+    <h2>Product Added success</h2>
+    <h1>{{ temp.productId }}</h1>
+    <h1>{{ temp.productName }}</h1>
+    <h1>{{ temp.price }}</h1>
+  </div>
+  
+  
