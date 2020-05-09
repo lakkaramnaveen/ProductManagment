@@ -1,29 +1,66 @@
-<div class="jumbotron">
+ <div class="jumbotron">
 
-    <form>
+    <form #productform="ngForm"  (ngSubmit)="onSubmit()">
   
         <div class="form-group">
-          <label for="pid">Enter Produt   Id </label>
-          <input [(ngModel)]="prod.productId" type="number"  class="form-control" name="pid"  id="pid" >
+          <label for="pid">Enter Produt  Id </label>
+          <input required [(ngModel)]="prod.productId" #Id="ngModel" type="text" pattern="[0-9]+" class="form-control" name="pid"  id="pid" >
+          <div *ngIf="Id.invalid && (Id.dirty || Id.touched)" class="alert alert-danger">
+            <div *ngIf="Id.errors.required">
+              Id is required.
+           </div>
+          <div *ngIf="Id.errors.pattern">
+            Id should contain only numbers.
+         </div>
+         </div>
         </div>
   
         <div class="form-group">
             <label for="pname">Enter Product Name </label>
-            <input  [(ngModel)]="prod.productName"   type="text"  class="form-control" name="pname"  id="pname">
+            <input  required [(ngModel)]="prod.productName" pattern="[a-zA-Z ]+" minlength="4" #productName="ngModel"  type="text"  class="form-control" name="pname"  id="pname">
+            <div *ngIf="productName.invalid && (productName.dirty || productName.touched)" class="alert alert-danger">
+          <div *ngIf="productName.errors.required">
+              product Name is required.
+             </div>
+            <div *ngIf="productName.errors.minlength">
+               product Name Name must be at least 4 characters long.
+           </div>
+            <div *ngIf="productName.errors.pattern">
+              product Name should contain only characters.
+            </div>
+           </div>
         </div>
-  
   
   
         <div class="form-group">
-            <label for="salary">Enter Price </label>
-            <input [(ngModel)]="prod.price"  type="number"  class="form-control" name="salary"  id="salary">
+            <label for="price">Enter Price </label>
+            <input required [(ngModel)]="prod.price" #price="ngModel"  type="text" pattern="[0-9]+\.[0-9]+"  class="form-control" name="price"  id="price">
+            <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
+              <div *ngIf="price.errors.required">
+                  price is required.
+                 </div>
+                <div *ngIf="price.errors.pattern">
+                  price should be in this format (100.01).
+                </div>
+               </div>
         </div>
+
+
+
+        <button [disabled]="!productform.form.valid" type="submit" class="btn btn-success">Submit</button>
   
-       <button   (click)="addProduct()" type="submit" class="btn btn-primary"> Add Product  </button>
+       <!-- <button   (click)="addProduct()" type="submit" class="btn btn-primary"> Add Product  </button> -->
   
       </form>
   
   </div>
+  <div [hidden]="!submitted">
+    <h4>You submitted successfully!</h4>
+    <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+  </div>
+  <br>
+  <br>
+  
   <div *ngIf="temp.price>0">
     <h2>Product Added success</h2>
     <h1>{{ temp.productId }}</h1>
@@ -31,4 +68,6 @@
     <h1>{{ temp.price }}</h1>
   </div>
   
-  
+   
+
+
